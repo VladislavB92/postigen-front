@@ -7,6 +7,7 @@ import ResponsiveAppBar from "./components/Global/AppBar";
 import ParcelDetails from "./components/Parcels/ParcelDetails";
 import LockerDetails from "./components/Lockers/LockerDetails";
 import CustomerDetails from "./components/Customers/CustomerDetails";
+import Dashboard from "./components/Dashboard/Dashboard";
 
 function App(): React.ReactElement {
     return (
@@ -14,6 +15,7 @@ function App(): React.ReactElement {
             <Router>
                 <ResponsiveAppBar/>
                 <Routes>
+                    <Route path="/" element={<Dashboard/>}/>
                     <Route path="/parcels" element={<ParcelList/>}/>
                     <Route path="/parcels/:parcelId" element={<ParcelDetails/>}/>
                     <Route path="/lockers" element={<LockerList/>}/>
