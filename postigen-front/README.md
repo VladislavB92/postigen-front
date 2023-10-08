@@ -3,7 +3,7 @@
 ## PROJECT
 
 The Postigen-front is a simple parcel movement application front-end.
-back-end API solution you can find [here](https://github.com/VladislavB92/postigen/blob/main/README.md).
+The back-end API solution you can find [here](https://github.com/VladislavB92/postigen/blob/main/README.md).
 
 It allows:
 
