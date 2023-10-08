@@ -6,20 +6,46 @@ import Box from '@mui/material/Box';
 import Typography from "@mui/material/Typography";
 import { LinearIndeterminate } from "../Global/LoadingBar";
 import BackButton from "../Global/BackButton";
+import Button from '@mui/material/Button';
+import { Alert, Grid } from "@mui/material";
 
-function LockerDetails() {
+function LockerDetails(): React.ReactElement {
     const { lockerId } = useParams();
-    const [locker, setLocker] = useState<Locker | null>(null); // Specify the type
+    const [locker, setLocker] = useState<Locker | null>(null);
+    const [successMessage, setSuccessMessage] = useState<string | null>(null);
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    const [parcels, setParcels] = useState<Parcel[]>([]);
 
     useEffect(() => {
         api.get<Locker>(`/api/lockers/${lockerId}/`)
             .then((response) => {
                 setLocker(response.data);
+                setParcels(response.data.parcels || []);
+                setSuccessMessage(null);
+                setErrorMessage(null);
             })
             .catch((error) => {
                 console.error(`Error fetching locker ${lockerId}:`, error);
             });
     }, [lockerId]);
+
+    const handleTakeParcel = async (lockerId: number, parcelId: number) => {
+        try {
+            const response = await api.put(
+                `/api/lockers/${lockerId}/take-parcel/`,
+                { "parcel_id": parcelId },
+            );
+            if (response.status === 200) {
+                setSuccessMessage('Parcel taken successfully');
+                setParcels((prevParcels) => prevParcels.filter((parcel) => parcel.id !== parcelId));
+            } else {
+                setErrorMessage('Operation was not successful');
+            }
+        } catch (error) {
+            console.error('Error taking out parcel:', error);
+            setErrorMessage('Operation was not successful');
+        }
+    };
 
     if (!locker) {
         return <LinearIndeterminate/>;
@@ -27,31 +53,44 @@ function LockerDetails() {
 
     return (
         <Box p={3}>
-            <BackButton to="/lockers" label="Back to Lockers" />
-            <Typography
-                variant="h4"
-                noWrap
-                sx={{
-                    mr: 2,
-                    display: { xs: 'none', md: 'flex' },
-                    fontFamily: 'monospace',
-                    fontWeight: 700,
-                    letterSpacing: '.3rem',
-                    color: 'inherit',
-                    textDecoration: 'none',
-                }}
-            >
-                Locker ID: {locker.id}
-            </Typography>
+            <Grid container spacing={2} alignItems="center">
+                <Grid item>
+                    <BackButton to="/lockers" label="Back to Lockers"/>
+                </Grid>
+                <Grid item>
+                    <Typography
+                        variant="h4"
+                        noWrap
+                        sx={{
+                            mr: 2,
+                            display: { xs: 'none', md: 'flex' },
+                            fontFamily: 'monospace',
+                            fontWeight: 700,
+                            letterSpacing: '.3rem',
+                            color: 'inherit',
+                            textDecoration: 'none',
+                        }}
+                    >
+                        Locker ID: {locker.id}
+                    </Typography>
+                </Grid>
+            </Grid>
             <div>
                 <h2>Address: {locker.location_address}</h2>
                 <h2>Size: {locker.size}</h2>
                 <h2>Status: {locker.status}</h2>
-                {locker.parcels && locker.parcels.length > 0 ? (
+                {parcels.length > 0 ? (
                     <div>
                         <h2>Parcels:</h2>
-                        {locker.parcels.map((parcel: Parcel) => (
+                        {parcels.map((parcel: Parcel) => (
                             <div key={parcel.id}>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={() => handleTakeParcel(locker.id, parcel.id)}
+                                >
+                                    Take out the parcel
+                                </Button>
                                 <p>Parcel ID: {parcel.id}</p>
                                 <p>Sender Email: {parcel.sender[0].email}</p>
                                 <p>Sender Phone: {parcel.sender[0].phone}</p>
@@ -61,6 +100,8 @@ function LockerDetails() {
                         ))}
                     </div>
                 ) : null}
+                {successMessage && <p><Alert severity="success">{successMessage}</Alert></p>}
+                {errorMessage && <p><Alert severity="error">{errorMessage}</Alert></p>}
             </div>
         </Box>
     );

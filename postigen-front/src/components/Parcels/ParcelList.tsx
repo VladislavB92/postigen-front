@@ -28,7 +28,7 @@ const columns: GridColDef[] = [
 ];
 
 
-function ParcelList() {
+function ParcelList(): React.ReactElement {
     const [parcelData, setParcelData] = useState<Parcel | null>(null);
     const navigate = useNavigate();
 

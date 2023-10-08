@@ -14,7 +14,7 @@ const columns: GridColDef[] = [
 ];
 
 
-function LockerList() {
+function LockerList(): React.ReactElement {
     const [customerData, setCustomerData] = useState<Customer | null>(null);
     const navigate = useNavigate();
 

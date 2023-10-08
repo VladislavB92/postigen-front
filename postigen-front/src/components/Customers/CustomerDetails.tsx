@@ -7,9 +7,9 @@ import Typography from "@mui/material/Typography";
 import { LinearIndeterminate } from "../Global/LoadingBar";
 import BackButton from "../Global/BackButton";
 
-function CustomerDetails() {
+function CustomerDetails(): React.ReactElement {
     const { customerId } = useParams();
-    const [customer, setCustomer] = useState<Customer | null>(null); // Specify the type
+    const [customer, setCustomer] = useState<Customer | null>(null);
 
     useEffect(() => {
         api.get<Customer>(`/api/customers/${customerId}/`)

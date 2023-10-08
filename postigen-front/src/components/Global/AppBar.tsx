@@ -14,7 +14,7 @@ import { Link } from 'react-router-dom';
 
 const pages = ['Lockers', 'Parcels', 'Customers'];
 
-function ResponsiveAppBar() {
+function ResponsiveAppBar(): React.ReactElement {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {

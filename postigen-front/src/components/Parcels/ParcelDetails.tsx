@@ -7,9 +7,9 @@ import Typography from "@mui/material/Typography";
 import { LinearIndeterminate } from "../Global/LoadingBar";
 import BackButton from "../Global/BackButton";
 
-function ParcelDetails() {
+function ParcelDetails(): React.ReactElement {
     const { parcelId } = useParams();
-    const [parcel, setParcel] = useState<Parcel | null>(null); // Specify the type
+    const [parcel, setParcel] = useState<Parcel | null>(null);
 
     useEffect(() => {
         api.get<Parcel>(`/api/parcels/${parcelId}/`)

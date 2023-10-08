@@ -8,7 +8,7 @@ import ParcelDetails from "./components/Parcels/ParcelDetails";
 import LockerDetails from "./components/Lockers/LockerDetails";
 import CustomerDetails from "./components/Customers/CustomerDetails";
 
-function App() {
+function App(): React.ReactElement {
     return (
         <div className="App">
             <Router>

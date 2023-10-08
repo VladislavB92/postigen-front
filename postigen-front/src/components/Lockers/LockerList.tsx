@@ -30,7 +30,7 @@ const columns: GridColDef[] = [
     },
 ];
 
-function LockerList() {
+function LockerList(): React.ReactElement {
     const [lockerData, setLockerData] = useState<Locker | null>(null);
     const navigate = useNavigate();
 
