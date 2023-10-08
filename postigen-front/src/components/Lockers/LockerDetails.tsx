@@ -8,6 +8,7 @@ import BackButton from "../Global/Buttons/BackButton";
 import Button from '@mui/material/Button';
 import { Alert, Grid } from "@mui/material";
 import { fetchLocker, takeParcel } from "../../apiService";
+import "../Global/Fonts/Fonts.css";
 
 function LockerDetails(): React.ReactElement {
     const { lockerId } = useParams();
@@ -55,6 +56,7 @@ function LockerDetails(): React.ReactElement {
                     <Typography
                         variant="h4"
                         noWrap
+                        className="font-colour"
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },

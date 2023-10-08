@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import { Parcel } from "../../../types/common";
 import Typography from "@mui/material/Typography";
 import { fetchParcels } from "../../apiService";
+import "../Global/Fonts/Fonts.css";
 
 
 const columns: GridColDef[] = [
@@ -60,6 +61,7 @@ function ParcelList(): React.ReactElement {
             <Typography
                 variant="h4"
                 noWrap
+                className="font-colour"
                 sx={{
                     mr: 2,
                     display: { xs: 'none', md: 'flex' },

@@ -6,6 +6,7 @@ import { Customer } from "../../../types/common";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import { fetchCustomers } from "../../apiService";
+import "../Global/Fonts/Fonts.css";
 
 const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 70 },
@@ -43,6 +44,7 @@ function LockerList(): React.ReactElement {
         <Box p={3}>
             <Typography
                 variant="h4"
+                className="font-colour"
                 noWrap
                 sx={{
                     mr: 2,

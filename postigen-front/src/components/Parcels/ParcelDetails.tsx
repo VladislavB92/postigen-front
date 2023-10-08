@@ -8,7 +8,13 @@ import BackButton from "../Global/Buttons/BackButton";
 import Button from '@mui/material/Button';
 import { Alert, Select, MenuItem } from "@mui/material";
 import { Grid } from '@mui/material';
-import { fetchLockers, fetchParcel, moveParcel, putParcel } from "../../apiService";
+import {
+    fetchLockers,
+    fetchParcel,
+    moveParcel,
+    putParcel,
+} from "../../apiService";
+import "../Global/Fonts/Fonts.css";
 
 function ParcelDetails(): React.ReactElement {
     const { parcelId } = useParams();
@@ -99,6 +105,7 @@ function ParcelDetails(): React.ReactElement {
                     <Typography
                         variant="h4"
                         noWrap
+                        className="font-colour"
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },

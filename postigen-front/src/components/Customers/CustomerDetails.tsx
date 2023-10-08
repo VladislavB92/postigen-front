@@ -7,6 +7,7 @@ import { LinearIndeterminate } from "../Global/LoadingBar";
 import BackButton from "../Global/Buttons/BackButton";
 import { Grid } from '@mui/material';
 import { fetchCustomer } from "../../apiService";
+import "../Global/Fonts/Fonts.css";
 
 function CustomerDetails(): React.ReactElement {
     const { customerId } = useParams();
@@ -33,6 +34,7 @@ function CustomerDetails(): React.ReactElement {
                     <Typography
                         variant="h4"
                         noWrap
+                        className="font-colour"
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
