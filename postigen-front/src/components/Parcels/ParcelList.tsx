@@ -2,6 +2,7 @@ import * as React from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import api from "../../api";
 import { useEffect, useState } from "react";
+import Box from '@mui/material/Box';
 
 type ParcelListProps = {
     sender: string;
@@ -56,19 +57,21 @@ function ParcelList() {
         : [];
 
     return (
-        <div style={{ height: 800, width: '100%' }}>
-            <DataGrid
-                rows={rows}
-                columns={columns}
-                initialState={{
-                    pagination: {
-                        paginationModel: { page: 0, pageSize: 10 },
-                    },
-                }}
-                pageSizeOptions={[5, 10]}
-                checkboxSelection
-            />
-        </div>
+        <Box p={3}>
+            <div style={{ height: 600, width: '100%' }}>
+                <DataGrid
+                    rows={rows}
+                    columns={columns}
+                    initialState={{
+                        pagination: {
+                            paginationModel: { page: 0, pageSize: 10 },
+                        },
+                    }}
+                    pageSizeOptions={[5, 10]}
+                    checkboxSelection
+                />
+            </div>
+        </Box>
     );
 }
 

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import api from "../../api";
 import { useEffect, useState } from "react";
+import Box from '@mui/material/Box';
 
 type CustomerListProps = {
     sender: string;
@@ -12,8 +13,8 @@ type CustomerListProps = {
 
 const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 70 },
-    { field: 'email', headerName: 'email', width: 300 },
-    { field: 'phone', headerName: 'phone', width: 200 },
+    { field: 'email', headerName: 'Email', width: 300 },
+    { field: 'phone', headerName: 'Phone', width: 200 },
 ];
 
 
@@ -41,19 +42,21 @@ function LockerList() {
         : [];
 
     return (
-        <div style={{ height: 800, width: '100%' }}>
-            <DataGrid
-                rows={rows}
-                columns={columns}
-                initialState={{
-                    pagination: {
-                        paginationModel: { page: 0, pageSize: 10 },
-                    },
-                }}
-                pageSizeOptions={[5, 10]}
-                checkboxSelection
-            />
-        </div>
+        <Box p={3}>
+            <div style={{ height: 600, width: '100%' }}>
+                <DataGrid
+                    rows={rows}
+                    columns={columns}
+                    initialState={{
+                        pagination: {
+                            paginationModel: { page: 0, pageSize: 10 },
+                        },
+                    }}
+                    pageSizeOptions={[5, 10]}
+                    checkboxSelection
+                />
+            </div>
+        </Box>
     );
 }
 

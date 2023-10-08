@@ -2,6 +2,7 @@ import * as React from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import api from "../../api";
 import { useEffect, useState } from "react";
+import Box from '@mui/material/Box';
 
 type LockerListProps = {
     sender: string;
@@ -32,7 +33,6 @@ const columns: GridColDef[] = [
     },
 ];
 
-
 function LockerList() {
     const [lockerData, setLockerData] = useState<LockerListProps | null>(null);
 
@@ -47,7 +47,6 @@ function LockerList() {
             });
     }, []);
 
-
     const rows = Array.isArray(lockerData)
         ? lockerData.map((data) => ({
             id: data.id,
@@ -59,19 +58,21 @@ function LockerList() {
         : [];
 
     return (
-        <div style={{ height: 800, width: '100%' }}>
-            <DataGrid
-                rows={rows}
-                columns={columns}
-                initialState={{
-                    pagination: {
-                        paginationModel: { page: 0, pageSize: 10 },
-                    },
-                }}
-                pageSizeOptions={[5, 10]}
-                checkboxSelection
-            />
-        </div>
+        <Box p={3}>
+            <div style={{ height: 600, width: '100%' }}>
+                <DataGrid
+                    rows={rows}
+                    columns={columns}
+                    initialState={{
+                        pagination: {
+                            paginationModel: { page: 0, pageSize: 10 },
+                        },
+                    }}
+                    pageSizeOptions={[5, 10]}
+                    checkboxSelection
+                />
+            </div>
+        </Box>
     );
 }
 
