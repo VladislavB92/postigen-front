@@ -5,7 +5,8 @@ import { Parcel } from "../../../types/common";
 import Box from '@mui/material/Box';
 import Typography from "@mui/material/Typography";
 import { LinearIndeterminate } from "../Global/LoadingBar";
-import BackButton from "../Global/BackButton";
+import BackButton from "../Global/Buttons/BackButton";
+import { Grid } from '@mui/material';
 
 function ParcelDetails(): React.ReactElement {
     const { parcelId } = useParams();
@@ -27,22 +28,28 @@ function ParcelDetails(): React.ReactElement {
 
     return (
         <Box p={3}>
-            <BackButton to="/parcels" label="Back to Parcels" />
-            <Typography
-                variant="h4"
-                noWrap
-                sx={{
-                    mr: 2,
-                    display: { xs: 'none', md: 'flex' },
-                    fontFamily: 'monospace',
-                    fontWeight: 700,
-                    letterSpacing: '.3rem',
-                    color: 'inherit',
-                    textDecoration: 'none',
-                }}
-            >
-                Parcel ID: {parcel.id}
-            </Typography>
+            <Grid container spacing={2} alignItems="center">
+                <Grid item>
+                    <BackButton to="/parcels" label="Back to Parcels"/>
+                </Grid>
+                <Grid item>
+                    <Typography
+                        variant="h4"
+                        noWrap
+                        sx={{
+                            mr: 2,
+                            display: { xs: 'none', md: 'flex' },
+                            fontFamily: 'monospace',
+                            fontWeight: 700,
+                            letterSpacing: '.3rem',
+                            color: 'inherit',
+                            textDecoration: 'none',
+                        }}
+                    >
+                        Parcel ID: {parcel.id}
+                    </Typography>
+                </Grid>
+            </Grid>
             <div>
                 <h2>Sender:</h2>
                 <p>Email: {parcel.sender[0].email}</p>

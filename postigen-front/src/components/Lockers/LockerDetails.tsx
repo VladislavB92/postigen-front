@@ -5,7 +5,7 @@ import { Locker, Parcel } from '../../../types/common';
 import Box from '@mui/material/Box';
 import Typography from "@mui/material/Typography";
 import { LinearIndeterminate } from "../Global/LoadingBar";
-import BackButton from "../Global/BackButton";
+import BackButton from "../Global/Buttons/BackButton";
 import Button from '@mui/material/Button';
 import { Alert, Grid } from "@mui/material";
 

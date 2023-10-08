@@ -5,7 +5,8 @@ import { Customer } from '../../../types/common';
 import Box from '@mui/material/Box';
 import Typography from "@mui/material/Typography";
 import { LinearIndeterminate } from "../Global/LoadingBar";
-import BackButton from "../Global/BackButton";
+import BackButton from "../Global/Buttons/BackButton";
+import { Grid } from '@mui/material';
 
 function CustomerDetails(): React.ReactElement {
     const { customerId } = useParams();
@@ -27,22 +28,28 @@ function CustomerDetails(): React.ReactElement {
 
     return (
         <Box p={3}>
-            <BackButton to="/customers" label="Back to Customers" />
-            <Typography
-                variant="h4"
-                noWrap
-                sx={{
-                    mr: 2,
-                    display: { xs: 'none', md: 'flex' },
-                    fontFamily: 'monospace',
-                    fontWeight: 700,
-                    letterSpacing: '.3rem',
-                    color: 'inherit',
-                    textDecoration: 'none',
-                }}
-            >
-                Customer ID: {customer.id}
-            </Typography>
+            <Grid container spacing={2} alignItems="center">
+                <Grid item>
+                    <BackButton to="/customers" label="Back to Customers"/>
+                </Grid>
+                <Grid item>
+                    <Typography
+                        variant="h4"
+                        noWrap
+                        sx={{
+                            mr: 2,
+                            display: { xs: 'none', md: 'flex' },
+                            fontFamily: 'monospace',
+                            fontWeight: 700,
+                            letterSpacing: '.3rem',
+                            color: 'inherit',
+                            textDecoration: 'none',
+                        }}
+                    >
+                        Customer ID: {customer.id}
+                    </Typography>
+                </Grid>
+            </Grid>
             <div>
                 <h2>Email: {customer.email}</h2>
                 <h2>Phone number: {customer.phone}</h2>
