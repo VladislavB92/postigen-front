@@ -1,15 +1,12 @@
 import * as React from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import api from "../../api";
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import Box from '@mui/material/Box';
+import { Parcel } from "../../../types/common";
+import Typography from "@mui/material/Typography";
 
-type ParcelListProps = {
-    sender: string;
-    receiver: string;
-    size: string;
-    locker: number;
-};
 
 const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 70 },
@@ -32,7 +29,8 @@ const columns: GridColDef[] = [
 
 
 function ParcelList() {
-    const [parcelData, setParcelData] = useState<ParcelListProps | null>(null);
+    const [parcelData, setParcelData] = useState<Parcel | null>(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         api
@@ -44,6 +42,11 @@ function ParcelList() {
                 console.error("Error fetching data:", error);
             });
     }, []);
+
+    const handleRowClick = (params: any) => {
+        const parcelId = params.row.id;
+        navigate(`/parcels/${parcelId}`);
+    };
 
 
     const rows = Array.isArray(parcelData)
@@ -58,10 +61,26 @@ function ParcelList() {
 
     return (
         <Box p={3}>
+            <Typography
+                variant="h4"
+                noWrap
+                sx={{
+                    mr: 2,
+                    display: { xs: 'none', md: 'flex' },
+                    fontFamily: 'monospace',
+                    fontWeight: 700,
+                    letterSpacing: '.3rem',
+                    color: 'inherit',
+                    textDecoration: 'none',
+                }}
+            >
+                Parcels
+            </Typography>
             <div style={{ height: 600, width: '100%' }}>
                 <DataGrid
                     rows={rows}
                     columns={columns}
+                    onRowClick={handleRowClick}
                     initialState={{
                         pagination: {
                             paginationModel: { page: 0, pageSize: 10 },

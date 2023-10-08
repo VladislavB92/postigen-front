@@ -3,13 +3,9 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import api from "../../api";
 import { useEffect, useState } from "react";
 import Box from '@mui/material/Box';
-
-type CustomerListProps = {
-    sender: string;
-    receiver: string;
-    size: string;
-    locker: number;
-};
+import { Customer } from "../../../types/common";
+import Typography from "@mui/material/Typography";
+import { useNavigate } from "react-router-dom";
 
 const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 70 },
@@ -19,7 +15,8 @@ const columns: GridColDef[] = [
 
 
 function LockerList() {
-    const [customerData, setCustomerData] = useState<CustomerListProps | null>(null);
+    const [customerData, setCustomerData] = useState<Customer | null>(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         api
@@ -32,6 +29,11 @@ function LockerList() {
             });
     }, []);
 
+    const handleRowClick = (params: any) => {
+        const customerId = params.row.id;
+        navigate(`/customers/${customerId}`);
+    };
+
 
     const rows = Array.isArray(customerData)
         ? customerData.map((data) => ({
@@ -43,10 +45,26 @@ function LockerList() {
 
     return (
         <Box p={3}>
+            <Typography
+                variant="h4"
+                noWrap
+                sx={{
+                    mr: 2,
+                    display: { xs: 'none', md: 'flex' },
+                    fontFamily: 'monospace',
+                    fontWeight: 700,
+                    letterSpacing: '.3rem',
+                    color: 'inherit',
+                    textDecoration: 'none',
+                }}
+            >
+                Customers
+            </Typography>
             <div style={{ height: 600, width: '100%' }}>
                 <DataGrid
                     rows={rows}
                     columns={columns}
+                    onRowClick={handleRowClick}
                     initialState={{
                         pagination: {
                             paginationModel: { page: 0, pageSize: 10 },
