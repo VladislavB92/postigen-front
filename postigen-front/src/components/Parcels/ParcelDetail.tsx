@@ -4,6 +4,7 @@ import api from '../../api';
 import { Parcel } from "../../../types/common";
 import Box from '@mui/material/Box';
 import Typography from "@mui/material/Typography";
+import { LinearIndeterminate } from "../Global/LoadingBar";
 
 function ParcelDetail() {
     const { parcelId } = useParams();
@@ -20,7 +21,7 @@ function ParcelDetail() {
     }, [parcelId]);
 
     if (!parcel) {
-        return <div>Loading...</div>;
+        return <LinearIndeterminate/>;
     }
 
     return (

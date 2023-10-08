@@ -4,6 +4,7 @@ import api from '../../api';
 import { Customer } from '../../../types/common';
 import Box from '@mui/material/Box';
 import Typography from "@mui/material/Typography";
+import { LinearIndeterminate } from "../Global/LoadingBar";
 
 function CustomerDetail() {
     const { customerId } = useParams();
@@ -20,7 +21,7 @@ function CustomerDetail() {
     }, [customerId]);
 
     if (!customer) {
-        return <div>Loading...</div>;
+        return <LinearIndeterminate/>;
     }
 
     return (

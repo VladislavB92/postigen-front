@@ -4,6 +4,7 @@ import api from '../../api';
 import { Locker } from '../../../types/common';
 import Box from '@mui/material/Box';
 import Typography from "@mui/material/Typography";
+import { LinearIndeterminate } from "../Global/LoadingBar";
 
 function LockerDetail() {
     const { lockerId } = useParams();
@@ -20,7 +21,7 @@ function LockerDetail() {
     }, [lockerId]);
 
     if (!locker) {
-        return <div>Loading...</div>;
+        return <LinearIndeterminate/>;
     }
 
     return (
