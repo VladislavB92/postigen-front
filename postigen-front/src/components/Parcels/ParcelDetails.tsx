@@ -5,6 +5,7 @@ import { Parcel } from "../../../types/common";
 import Box from '@mui/material/Box';
 import Typography from "@mui/material/Typography";
 import { LinearIndeterminate } from "../Global/LoadingBar";
+import BackButton from "../Global/BackButton";
 
 function ParcelDetails() {
     const { parcelId } = useParams();
@@ -26,6 +27,7 @@ function ParcelDetails() {
 
     return (
         <Box p={3}>
+            <BackButton to="/parcels" label="Back to Parcels" />
             <Typography
                 variant="h4"
                 noWrap

@@ -5,6 +5,7 @@ import { Locker, Parcel } from '../../../types/common';
 import Box from '@mui/material/Box';
 import Typography from "@mui/material/Typography";
 import { LinearIndeterminate } from "../Global/LoadingBar";
+import BackButton from "../Global/BackButton";
 
 function LockerDetails() {
     const { lockerId } = useParams();
@@ -26,6 +27,7 @@ function LockerDetails() {
 
     return (
         <Box p={3}>
+            <BackButton to="/lockers" label="Back to Lockers" />
             <Typography
                 variant="h4"
                 noWrap
