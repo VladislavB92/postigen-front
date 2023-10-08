@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
-import { Customer, Locker, Parcel } from '../types/common';
+import { Customer, Locker, Parcel } from '../types/common'
 
 const API_BASE_URL = `${process.env.REACT_APP_BASE_API_URL}/api/`;
 

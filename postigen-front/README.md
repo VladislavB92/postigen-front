@@ -4,6 +4,10 @@
 
 The Postigen-front is a simple parcel movement application front-end.
 The back-end API solution you can find [here](https://github.com/VladislavB92/postigen/blob/main/README.md).
+![postigen-1.png](..%2Fpostigen-1.png)
+![postigen-2.png](..%2Fpostigen-2.png)
+![postigen-3.png](..%2Fpostigen-3.png)
+![postigen-4.png](..%2Fpostigen-4.png)
 
 It allows:
 
