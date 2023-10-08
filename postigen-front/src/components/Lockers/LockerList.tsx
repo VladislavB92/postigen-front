@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import api from "../../api";
 import { useEffect, useState } from "react";
 
@@ -12,8 +12,7 @@ type ParcelListProps = {
 
 const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 70 },
-    { field: 'sender', headerName: 'Sender', width: 220 },
-    { field: 'receiver', headerName: 'Receiver', width: 220 },
+    { field: 'location_address', headerName: 'Location', width: 400 },
     {
         field: 'size',
         headerName: 'Size',
@@ -21,11 +20,15 @@ const columns: GridColDef[] = [
         width: 90,
     },
     {
-        field: 'locker',
-        headerName: 'Locker',
-        description: 'This column has a value getter and is not sortable.',
-        sortable: false,
-        width: 160,
+        field: 'parcels',
+        headerName: 'Parcels',
+        type: 'number',
+        width: 90,
+    },
+    {
+        field: 'status',
+        headerName: 'Status',
+        width: 120,
     },
 ];
 
@@ -35,7 +38,7 @@ function ParcelList() {
 
     useEffect(() => {
         api
-            .get("/api/parcels/")
+            .get("/api/lockers/")
             .then((response) => {
                 setParcelData(response.data);
             })
@@ -48,10 +51,10 @@ function ParcelList() {
     const rows = Array.isArray(parcelData)
         ? parcelData.map((data) => ({
             id: data.id,
-            sender: data.sender[0].email,
-            receiver: data.receiver[0].email,
+            location_address: data.location_address,
             size: data.size,
-            locker: data.locker || "not assigned yet"
+            parcels: data.parcels[0]?.id,
+            status: data.status
         }))
         : [];
 
