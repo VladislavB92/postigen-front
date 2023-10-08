@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import Typography from "@mui/material/Typography";
 import { LinearIndeterminate } from "../Global/LoadingBar";
 
-function LockerDetail() {
+function LockerDetails() {
     const { lockerId } = useParams();
     const [locker, setLocker] = useState<Locker | null>(null); // Specify the type
 
@@ -64,4 +64,4 @@ function LockerDetail() {
     );
 }
 
-export default LockerDetail;
+export default LockerDetails;

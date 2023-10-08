@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import Typography from "@mui/material/Typography";
 import { LinearIndeterminate } from "../Global/LoadingBar";
 
-function ParcelDetail() {
+function ParcelDetails() {
     const { parcelId } = useParams();
     const [parcel, setParcel] = useState<Parcel | null>(null); // Specify the type
 
@@ -59,4 +59,4 @@ function ParcelDetail() {
     );
 }
 
-export default ParcelDetail;
+export default ParcelDetails;

@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import Typography from "@mui/material/Typography";
 import { LinearIndeterminate } from "../Global/LoadingBar";
 
-function CustomerDetail() {
+function CustomerDetails() {
     const { customerId } = useParams();
     const [customer, setCustomer] = useState<Customer | null>(null); // Specify the type
 
@@ -49,4 +49,4 @@ function CustomerDetail() {
     );
 }
 
-export default CustomerDetail;
+export default CustomerDetails;
