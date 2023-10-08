@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import api from '../../api';
-import { Locker } from '../../../types/common';
+import { Locker, Parcel } from '../../../types/common';
 import Box from '@mui/material/Box';
 import Typography from "@mui/material/Typography";
 import { LinearIndeterminate } from "../Global/LoadingBar";
@@ -45,6 +45,20 @@ function LockerDetail() {
                 <h2>Address: {locker.location_address}</h2>
                 <h2>Size: {locker.size}</h2>
                 <h2>Status: {locker.status}</h2>
+                {locker.parcels && locker.parcels.length > 0 ? (
+                    <div>
+                        <h2>Parcels:</h2>
+                        {locker.parcels.map((parcel: Parcel) => (
+                            <div key={parcel.id}>
+                                <p>Parcel ID: {parcel.id}</p>
+                                <p>Sender Email: {parcel.sender[0].email}</p>
+                                <p>Sender Phone: {parcel.sender[0].phone}</p>
+                                <p>Receiver Email: {parcel.receiver[0].email}</p>
+                                <p>Receiver Phone: {parcel.receiver[0].phone}</p>
+                            </div>
+                        ))}
+                    </div>
+                ) : null}
             </div>
         </Box>
     );

@@ -49,7 +49,11 @@ function ParcelDetail() {
                 <p>Email: {parcel.receiver[0].email}</p>
                 <p>Phone: {parcel.receiver[0].phone}</p>
                 <h2>Size: {parcel.size}</h2>
-                <h2>Locker ID: {parcel.locker}</h2>
+                {parcel.locker ? (
+                    <div>
+                        <h2>Locker ID: {parcel.locker}</h2>
+                    </div>
+                ) : null}
             </div>
         </Box>
     );

@@ -15,6 +15,7 @@ export type Parcel = {
 export type Locker = {
     id: number;
     location_address: string;
-    size: string
+    size: string;
     status: string;
+    parcels: Parcel[];
 };
