@@ -1,25 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import api from '../../api';
 import { Customer } from '../../../types/common';
 import Box from '@mui/material/Box';
 import Typography from "@mui/material/Typography";
 import { LinearIndeterminate } from "../Global/LoadingBar";
 import BackButton from "../Global/Buttons/BackButton";
 import { Grid } from '@mui/material';
+import { fetchCustomer } from "../../apiService";
 
 function CustomerDetails(): React.ReactElement {
     const { customerId } = useParams();
     const [customer, setCustomer] = useState<Customer | null>(null);
 
     useEffect(() => {
-        api.get<Customer>(`/api/customers/${customerId}/`)
+        fetchCustomer(customerId)
             .then((response) => {
                 setCustomer(response.data);
             })
-            .catch((error) => {
-                console.error(`Error fetching customer ${customerId}:`, error);
-            });
     }, [customerId]);
 
     if (!customer) {

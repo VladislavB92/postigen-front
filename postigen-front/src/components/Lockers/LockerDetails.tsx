@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import api from '../../api';
 import { Locker, Parcel } from '../../../types/common';
 import Box from '@mui/material/Box';
 import Typography from "@mui/material/Typography";
@@ -8,6 +7,7 @@ import { LinearIndeterminate } from "../Global/LoadingBar";
 import BackButton from "../Global/Buttons/BackButton";
 import Button from '@mui/material/Button';
 import { Alert, Grid } from "@mui/material";
+import { fetchLocker, takeParcel } from "../../apiService";
 
 function LockerDetails(): React.ReactElement {
     const { lockerId } = useParams();
@@ -17,24 +17,18 @@ function LockerDetails(): React.ReactElement {
     const [parcels, setParcels] = useState<Parcel[]>([]);
 
     useEffect(() => {
-        api.get<Locker>(`/api/lockers/${lockerId}/`)
+        fetchLocker(lockerId)
             .then((response) => {
                 setLocker(response.data);
                 setParcels(response.data.parcels || []);
                 setSuccessMessage(null);
                 setErrorMessage(null);
             })
-            .catch((error) => {
-                console.error(`Error fetching locker ${lockerId}:`, error);
-            });
     }, [lockerId]);
 
     const handleTakeParcel = async (lockerId: number, parcelId: number) => {
         try {
-            const response = await api.put(
-                `/api/lockers/${lockerId}/take-parcel/`,
-                { "parcel_id": parcelId },
-            );
+            const response = await takeParcel(lockerId, parcelId)
             if (response.status === 200) {
                 setSuccessMessage('Parcel taken successfully');
                 setParcels((prevParcels) => prevParcels.filter((parcel) => parcel.id !== parcelId));

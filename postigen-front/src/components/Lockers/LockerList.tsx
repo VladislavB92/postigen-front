@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import api from "../../api";
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import Box from '@mui/material/Box';
 import { Locker } from "../../../types/common";
 import Typography from "@mui/material/Typography";
+import { fetchLockers } from "../../apiService";
 
 
 const columns: GridColDef[] = [
@@ -31,18 +31,14 @@ const columns: GridColDef[] = [
 ];
 
 function LockerList(): React.ReactElement {
-    const [lockerData, setLockerData] = useState<Locker | null>(null);
+   const [lockerData, setLockerData] = useState<Locker[]>([]);
     const navigate = useNavigate();
 
     useEffect(() => {
-        api
-            .get('/api/lockers/')
+        fetchLockers()
             .then((response) => {
                 setLockerData(response.data);
             })
-            .catch((error) => {
-                console.error('Error fetching data:', error);
-            });
     }, []);
 
     const handleRowClick = (params: any) => {

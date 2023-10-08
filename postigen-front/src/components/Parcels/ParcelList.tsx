@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import api from "../../api";
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import Box from '@mui/material/Box';
 import { Parcel } from "../../../types/common";
 import Typography from "@mui/material/Typography";
+import { fetchParcels } from "../../apiService";
 
 
 const columns: GridColDef[] = [
@@ -29,18 +29,14 @@ const columns: GridColDef[] = [
 
 
 function ParcelList(): React.ReactElement {
-    const [parcelData, setParcelData] = useState<Parcel | null>(null);
+    const [parcelData, setParcelData] = useState<Parcel[]>([]);
     const navigate = useNavigate();
 
     useEffect(() => {
-        api
-            .get('/api/parcels/')
+        fetchParcels()
             .then((response) => {
                 setParcelData(response.data);
             })
-            .catch((error) => {
-                console.error("Error fetching data:", error);
-            });
     }, []);
 
     const handleRowClick = (params: any) => {

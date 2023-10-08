@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import api from "../../api";
 import { useEffect, useState } from "react";
 import Box from '@mui/material/Box';
 import { Customer } from "../../../types/common";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
+import { fetchCustomers } from "../../apiService";
 
 const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 70 },
@@ -15,18 +15,14 @@ const columns: GridColDef[] = [
 
 
 function LockerList(): React.ReactElement {
-    const [customerData, setCustomerData] = useState<Customer | null>(null);
+    const [customerData, setCustomerData] = useState<Customer[]>([]);
     const navigate = useNavigate();
 
     useEffect(() => {
-        api
-            .get('/api/customers/')
+        fetchCustomers()
             .then((response) => {
                 setCustomerData(response.data);
             })
-            .catch((error) => {
-                console.error('Error fetching data:', error);
-            });
     }, []);
 
     const handleRowClick = (params: any) => {

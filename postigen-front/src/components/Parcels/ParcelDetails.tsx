@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import api from '../../api';
 import { Parcel, Locker } from "../../../types/common";
 import Box from '@mui/material/Box';
 import Typography from "@mui/material/Typography";
@@ -9,6 +8,7 @@ import BackButton from "../Global/Buttons/BackButton";
 import Button from '@mui/material/Button';
 import { Alert, Select, MenuItem } from "@mui/material";
 import { Grid } from '@mui/material';
+import { fetchLockers, fetchParcel, moveParcel, putParcel } from "../../apiService";
 
 function ParcelDetails(): React.ReactElement {
     const { parcelId } = useParams();
@@ -21,33 +21,27 @@ function ParcelDetails(): React.ReactElement {
     const [moveToLocker, setMoveToLocker] = useState<string>('');
 
     useEffect(() => {
-        api.get<Parcel>(`/api/parcels/${parcelId}/`)
+        fetchParcel(parcelId)
             .then((response) => {
                 setParcel(response.data);
                 if (response.data.locker) {
                     setShowMoveParcel(true);
                 }
             })
-            .catch((error) => {
-                console.error(`Error fetching parcel ${parcelId}:`, error);
-            });
 
-        api.get<Locker[]>('/api/lockers/')
+        fetchLockers()
             .then((response) => {
                 setLockers(response.data);
             })
-            .catch((error) => {
-                console.error('Error fetching lockers:', error);
-            });
     }, [parcelId]);
 
     const handlePutParcelIntoLocker = async () => {
         if (selectedLocker !== '') {
             try {
-                const response = await api.put(
-                    `/api/parcels/${parcelId}/put-parcel/`,
-                    { "locker_id": parseInt(selectedLocker, 10) },
-                );
+                const response = await putParcel(
+                    parcelId,
+                    parseInt(selectedLocker, 10),
+                )
                 if (response.status === 200) {
                     setSuccessMessage('Parcel put into locker successfully');
                     setParcel((prevParcel) => ({
@@ -69,9 +63,9 @@ function ParcelDetails(): React.ReactElement {
     const handleMoveParcel = async () => {
         if (moveToLocker !== '') {
             try {
-                const response = await api.put(
-                    `/api/parcels/${parcelId}/move-parcel/`,
-                    { 'new_locker_id': parseInt(moveToLocker, 10) },
+                const response = await moveParcel(
+                    parcelId,
+                    parseInt(moveToLocker, 10),
                 );
                 if (response.status === 200) {
                     setSuccessMessage('Parcel moved successfully');
