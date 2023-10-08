@@ -42,7 +42,7 @@ export default function Dashboard() {
                                     color: 'inherit',
                                     textDecoration: 'none',
                                 }}>
-                        Total lockers: {totalLockers}
+                        Total parcels: {totalParcels}
                     </Typography>
                 </CardContent>
                 <CardActions>
@@ -67,7 +67,7 @@ export default function Dashboard() {
                                     color: 'inherit',
                                     textDecoration: 'none',
                                 }}>
-                        Total parcels: {totalParcels}
+                        Total lockers: {totalLockers}
                     </Typography>
                 </CardContent>
                 <CardActions>

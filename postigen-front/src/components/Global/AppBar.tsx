@@ -12,7 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import { Link } from 'react-router-dom';
 
-const pages = ['Lockers', 'Parcels', 'Customers'];
+const pages = ['Parcels', 'Lockers', 'Customers'];
 
 function ResponsiveAppBar(): React.ReactElement {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
