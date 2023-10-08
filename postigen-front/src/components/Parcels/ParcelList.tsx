@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import api from "../../api";
 import { useEffect, useState } from "react";
 
@@ -35,7 +35,7 @@ function ParcelList() {
 
     useEffect(() => {
         api
-            .get("/api/parcels/")
+            .get('/api/parcels/')
             .then((response) => {
                 setParcelData(response.data);
             })
@@ -51,7 +51,7 @@ function ParcelList() {
             sender: data.sender[0].email,
             receiver: data.receiver[0].email,
             size: data.size,
-            locker: data.locker || "not assigned yet"
+            locker: data.locker || 'not assigned yet'
         }))
         : [];
 

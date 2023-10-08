@@ -3,7 +3,7 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import api from "../../api";
 import { useEffect, useState } from "react";
 
-type ParcelListProps = {
+type LockerListProps = {
     sender: string;
     receiver: string;
     size: string;
@@ -33,23 +33,23 @@ const columns: GridColDef[] = [
 ];
 
 
-function ParcelList() {
-    const [parcelData, setParcelData] = useState<ParcelListProps | null>(null);
+function LockerList() {
+    const [lockerData, setLockerData] = useState<LockerListProps | null>(null);
 
     useEffect(() => {
         api
-            .get("/api/lockers/")
+            .get('/api/lockers/')
             .then((response) => {
-                setParcelData(response.data);
+                setLockerData(response.data);
             })
             .catch((error) => {
-                console.error("Error fetching data:", error);
+                console.error('Error fetching data:', error);
             });
     }, []);
 
 
-    const rows = Array.isArray(parcelData)
-        ? parcelData.map((data) => ({
+    const rows = Array.isArray(lockerData)
+        ? lockerData.map((data) => ({
             id: data.id,
             location_address: data.location_address,
             size: data.size,
@@ -75,4 +75,4 @@ function ParcelList() {
     );
 }
 
-export default ParcelList;
+export default LockerList;
