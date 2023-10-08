@@ -142,13 +142,18 @@ function ParcelDetails(): React.ReactElement {
                                         value={moveToLocker}
                                         onChange={(e) => setMoveToLocker(e.target.value as string)}
                                         displayEmpty
-                                        placeholder="Select a locker to move the parcel"
+                                        sx={{ width: '650px' }}
                                     >
-                                        {lockers.map((locker) => (
-                                            <MenuItem key={locker.id} value={locker.id.toString()}>
-                                                {locker.location_address} - {locker.size} - {locker.status}
-                                            </MenuItem>
-                                        ))}
+                                        <MenuItem value="" disabled>
+                                            Select a locker
+                                        </MenuItem>
+                                        {lockers
+                                            .filter((locker) => locker.status === "free")
+                                            .map((locker) => (
+                                                <MenuItem key={locker.id} value={locker.id.toString()}>
+                                                    {locker.location_address} - {locker.size} - {locker.status}
+                                                </MenuItem>
+                                            ))}
                                     </Select>
                                     <Button
                                         variant="contained"
@@ -166,13 +171,18 @@ function ParcelDetails(): React.ReactElement {
                                 value={selectedLocker}
                                 onChange={(e) => setSelectedLocker(e.target.value as string)}
                                 displayEmpty
-                                placeholder="Select a locker"
+                                sx={{ width: '650px' }}
                             >
-                                {lockers.map((locker) => (
-                                    <MenuItem key={locker.id} value={locker.id.toString()}>
-                                        {locker.location_address} - {locker.size} - {locker.status}
-                                    </MenuItem>
-                                ))}
+                                <MenuItem value="" disabled>
+                                    Select a locker
+                                </MenuItem>
+                                {lockers
+                                    .filter((locker) => locker.status === "free")
+                                    .map((locker) => (
+                                        <MenuItem key={locker.id} value={locker.id.toString()}>
+                                            {locker.location_address} - {locker.size} - {locker.status}
+                                        </MenuItem>
+                                    ))}
                             </Select>
                             <Button
                                 variant="contained"
