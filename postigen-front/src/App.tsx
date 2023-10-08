@@ -3,11 +3,13 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ParcelList from './components/Parcels/ParcelList';
 import LockerList from './components/Lockers/LockerList';
 import CustomerList from "./components/Customers/CustomerList";
+import ResponsiveAppBar from "./components/Global/AppBar";
 
 function App() {
     return (
         <div className="App">
             <Router>
+                <ResponsiveAppBar/>
                 <Routes>
                     <Route path="/parcels" element={<ParcelList/>}/>
                     <Route path="/lockers" element={<LockerList/>}/>
