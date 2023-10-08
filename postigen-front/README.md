@@ -27,11 +27,11 @@ It allows:
 1. Install Node package manager (NPM) dependencies.
    Ensure that NPM binaries have been installed on your machine.
 
-        `npm install`
+        npm install
 
 2. Launch the development server.
 
-        `npm start`
+        npm start
 
 3. Locate the .env file and fill your [back-end's](https://github.com/VladislavB92/postigen/blob/main/README.md)
    localhost IP for the `REACT_APP_BASE_API_URL` key. By default, it should be `http://localhost:8000`.
