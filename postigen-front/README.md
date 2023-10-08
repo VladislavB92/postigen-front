@@ -1,46 +1,44 @@
-# Getting Started with Create React App
+# POSTIGEN-FRONT
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## PROJECT
 
-## Available Scripts
+The Postigen-front is a simple parcel movement application front-end.
+back-end API solution you can find [here](https://github.com/VladislavB92/postigen/blob/main/README.md).
 
-In the project directory, you can run:
+It allows:
 
-### `npm start`
+    - the user to browse parcels, lockers and customers
+    - put the parcels in the locker;
+    - move the parcels between lockers;
+    - take out the parcel from the locker.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## TECHNOLOGY
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- The project is based on `React v18.2.0` and `TypeScript`.
 
-### `npm test`
+## DEVELOPMENT
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Installation (MacOS/Linux)
 
-### `npm run build`
+1. Install Node package manager (NPM) dependencies.
+   Ensure that NPM binaries have been installed on your machine.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+        `npm install`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. Launch the development server.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+        `npm start`
 
-### `npm run eject`
+3. Locate the .env file and fill your [back-end's](https://github.com/VladislavB92/postigen/blob/main/README.md)
+   localhost IP for the `REACT_APP_BASE_API_URL` key. By default, it should be `http://localhost:8000`.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## GIT
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Each new branch should be created from the `main` branch.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+2. For the branch naming, start each branch name with the prefix according to the work you intend to do in it:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+    - feature/
+    - bugfix/
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+3. For the merge request, target the working branch to the `master` branch.
