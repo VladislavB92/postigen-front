@@ -14,7 +14,7 @@ function ParcelDetails(): React.ReactElement {
     const { parcelId } = useParams();
     const [parcel, setParcel] = useState<Parcel | null>(null);
     const [lockers, setLockers] = useState<Locker[]>([]);
-  const [selectedLocker, setSelectedLocker] = useState<number | null>(null);
+    const [selectedLocker, setSelectedLocker] = useState<string>('');
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -37,17 +37,17 @@ function ParcelDetails(): React.ReactElement {
     }, [parcelId]);
 
     const handlePutParcelIntoLocker = async () => {
-        if (selectedLocker !== null) {
+        if (selectedLocker !== '') {
             try {
                 const response = await api.put(
                     `/api/parcels/${parcelId}/put-parcel/`,
-                {"locker_id": selectedLocker},
+                    { "locker_id": parseInt(selectedLocker, 10) },
                 );
                 if (response.status === 200) {
                     setSuccessMessage('Parcel put into locker successfully');
                     setParcel((prevParcel) => ({
                         ...(prevParcel as Parcel),
-                        locker: selectedLocker,
+                        locker: parseInt(selectedLocker, 10),
                     }));
                 } else {
                     setErrorMessage('Operation was not successful');
@@ -90,44 +90,53 @@ function ParcelDetails(): React.ReactElement {
                 </Grid>
             </Grid>
             <div>
-                <h2>Sender:</h2>
-                <p>Email: {parcel.sender[0].email}</p>
-                <p>Phone: {parcel.sender[0].phone}</p>
-                <h2>Receiver:</h2>
-                <p>Email: {parcel.receiver[0].email}</p>
-                <p>Phone: {parcel.receiver[0].phone}</p>
-                <h2>Size: {parcel.size}</h2>
-                {parcel.locker ? (
-                    <div>
-                        <h2>Locker ID: {parcel.locker}</h2>
-                    </div>
-                ) : (
-                    <div>
-                        <Select
-                            value={selectedLocker}
-                            onChange={(e) => setSelectedLocker(e.target.value as number)}
-                            placeholder="Select a locker"
-                        >
-                            {lockers.map((locker) => (
-                                <MenuItem key={locker.id} value={locker.id}>
-                                    {locker.location_address} - {locker.size} - {locker.status}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={handlePutParcelIntoLocker}
-                        >
-                            Put parcel into a locker
-                        </Button>
-                    </div>
-                )}
+                <div>
+                    <h2>Sender:</h2>
+                    <p>Email: {parcel.sender[0].email}</p>
+                    <p>Phone: {parcel.sender[0].phone}</p>
+                </div>
+                <div>
+                    <h2>Receiver:</h2>
+                    <p>Email: {parcel.receiver[0].email}</p>
+                    <p>Phone: {parcel.receiver[0].phone}</p>
+                </div>
+                <div>
+                    <h2>Size: {parcel.size}</h2>
+                    {parcel.locker ? (
+                        <div>
+                            <h2>Locker ID: {parcel.locker}</h2>
+                        </div>
+                    ) : (
+                        <div>
+                            <Select
+                                value={selectedLocker}
+                                onChange={(e) => setSelectedLocker(e.target.value as string)}
+                                displayEmpty
+                                placeholder="Select a locker"
+                            >
+                                {lockers.map((locker) => (
+                                    <MenuItem key={locker.id}
+                                              value={locker.id.toString()}>
+                                        {locker.location_address} - {locker.size} - {locker.status}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={handlePutParcelIntoLocker}
+                            >
+                                Put parcel into a locker
+                            </Button>
+                        </div>
+                    )}
+                </div>
                 {successMessage && <p><Alert severity="success">{successMessage}</Alert></p>}
                 {errorMessage && <p><Alert severity="error">{errorMessage}</Alert></p>}
             </div>
         </Box>
     );
 }
+
 
 export default ParcelDetails;
