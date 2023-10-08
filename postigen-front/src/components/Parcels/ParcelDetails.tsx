@@ -17,11 +17,16 @@ function ParcelDetails(): React.ReactElement {
     const [selectedLocker, setSelectedLocker] = useState<string>('');
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    const [showMoveParcel, setShowMoveParcel] = useState(false);
+    const [moveToLocker, setMoveToLocker] = useState<string>('');
 
     useEffect(() => {
         api.get<Parcel>(`/api/parcels/${parcelId}/`)
             .then((response) => {
                 setParcel(response.data);
+                if (response.data.locker) {
+                    setShowMoveParcel(true);
+                }
             })
             .catch((error) => {
                 console.error(`Error fetching parcel ${parcelId}:`, error);
@@ -58,6 +63,31 @@ function ParcelDetails(): React.ReactElement {
             }
         } else {
             setErrorMessage('Please select a locker');
+        }
+    };
+
+    const handleMoveParcel = async () => {
+        if (moveToLocker !== '') {
+            try {
+                const response = await api.put(
+                    `/api/parcels/${parcelId}/move-parcel/`,
+                    { 'new_locker_id': parseInt(moveToLocker, 10) },
+                );
+                if (response.status === 200) {
+                    setSuccessMessage('Parcel moved successfully');
+                    setParcel((prevParcel) => ({
+                        ...(prevParcel as Parcel),
+                        locker: parseInt(moveToLocker, 10),
+                    }));
+                } else {
+                    setErrorMessage('Operation was not successful');
+                }
+            } catch (error) {
+                console.error('Error moving parcel:', error);
+                setErrorMessage('Operation was not successful');
+            }
+        } else {
+            setErrorMessage('Please select a locker to move the parcel');
         }
     };
 
@@ -105,6 +135,29 @@ function ParcelDetails(): React.ReactElement {
                     {parcel.locker ? (
                         <div>
                             <h2>Locker ID: {parcel.locker}</h2>
+                            {showMoveParcel && (
+                                <div>
+                                    <Select
+                                        value={moveToLocker}
+                                        onChange={(e) => setMoveToLocker(e.target.value as string)}
+                                        displayEmpty
+                                        placeholder="Select a locker to move the parcel"
+                                    >
+                                        {lockers.map((locker) => (
+                                            <MenuItem key={locker.id} value={locker.id.toString()}>
+                                                {locker.location_address} - {locker.size} - {locker.status}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={handleMoveParcel}
+                                    >
+                                        Move parcel
+                                    </Button>
+                                </div>
+                            )}
                         </div>
                     ) : (
                         <div>
@@ -115,8 +168,7 @@ function ParcelDetails(): React.ReactElement {
                                 placeholder="Select a locker"
                             >
                                 {lockers.map((locker) => (
-                                    <MenuItem key={locker.id}
-                                              value={locker.id.toString()}>
+                                    <MenuItem key={locker.id} value={locker.id.toString()}>
                                         {locker.location_address} - {locker.size} - {locker.status}
                                     </MenuItem>
                                 ))}
@@ -137,6 +189,5 @@ function ParcelDetails(): React.ReactElement {
         </Box>
     );
 }
-
 
 export default ParcelDetails;

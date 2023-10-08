@@ -84,6 +84,11 @@ function LockerDetails(): React.ReactElement {
                         <h2>Parcels:</h2>
                         {parcels.map((parcel: Parcel) => (
                             <div key={parcel.id}>
+                                <p>Parcel ID: {parcel.id}</p>
+                                <p>Sender Email: {parcel.sender[0].email}</p>
+                                <p>Sender Phone: {parcel.sender[0].phone}</p>
+                                <p>Receiver Email: {parcel.receiver[0].email}</p>
+                                <p>Receiver Phone: {parcel.receiver[0].phone}</p>
                                 <Button
                                     variant="contained"
                                     color="primary"
@@ -91,11 +96,6 @@ function LockerDetails(): React.ReactElement {
                                 >
                                     Take out the parcel
                                 </Button>
-                                <p>Parcel ID: {parcel.id}</p>
-                                <p>Sender Email: {parcel.sender[0].email}</p>
-                                <p>Sender Phone: {parcel.sender[0].phone}</p>
-                                <p>Receiver Email: {parcel.receiver[0].email}</p>
-                                <p>Receiver Phone: {parcel.receiver[0].phone}</p>
                             </div>
                         ))}
                     </div>
